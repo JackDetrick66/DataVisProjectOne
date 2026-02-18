@@ -1,0 +1,61 @@
+{
+  "chart": {
+    "title": "Life expectancy",
+    "subtitle": "Average number of years a newborn would live if age-specific mortality rates in the current year were to stay the same throughout its life.",
+    "citation": "Leandro Prados de la Escosura (2021)",
+    "originalChartUrl": "https://ourworldindata.org/grapher/life-expectancy-prados-de-la-escosura?v=1&csvType=full&useColumnShortNames=false",
+    "selection": [
+      "East Asia (AHDI)",
+      "South Asia (AHDI)",
+      "Middle East (AHDI)",
+      "North Africa (AHDI)",
+      "Latin America (AHDI)",
+      "Eastern Europe (AHDI)",
+      "Western Europe (AHDI)",
+      "Western offshoots (AHDI)",
+      "Sub Saharan Africa (AHDI)"
+    ]
+  },
+  "columns": {
+    "Life expectancy": {
+      "titleShort": "Life expectancy",
+      "titleLong": "Life expectancy",
+      "descriptionShort": "Average number of years a newborn would live if age-specific mortality rates in the current year were to stay the same throughout its life.\n",
+      "shortUnit": "years",
+      "unit": "years",
+      "timespan": "1870-2020",
+      "type": "Numeric",
+      "owidVariableId": 814480,
+      "shortName": "life_expectancy",
+      "lastUpdated": "2023-09-08",
+      "nextUpdate": "2026-09-07",
+      "citationShort": "Leandro Prados de la Escosura (2021) – with minor processing by Our World in Data",
+      "citationLong": "Leandro Prados de la Escosura (2021) – with minor processing by Our World in Data. “Life expectancy” [dataset]. Leandro Prados de la Escosura, “Augmented Human Development Index (AHDI) - Country data”; Leandro Prados de la Escosura, “Augmented Human Development Index (AHDI) - Regional data” [original data].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/814480.metadata.json"
+    },
+    "World region according to OWID": {
+      "titleShort": "World region according to OWID",
+      "titleLong": "World region according to OWID",
+      "descriptionShort": "Regions defined by Our World in Data, which are used in OWID charts and maps.",
+      "unit": "",
+      "timespan": "2023-2023",
+      "type": "Continent",
+      "owidVariableId": 900801,
+      "shortName": "owid_region",
+      "lastUpdated": "2023-01-01",
+      "citationShort": "Our World in Data – processed by Our World in Data",
+      "citationLong": "Our World in Data – processed by Our World in Data. “World region according to OWID” [dataset]. Our World in Data, “Regions” [original data].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/900801.metadata.json"
+    },
+    "814480-annotations": {
+      "titleShort": "814480-annotations",
+      "titleLong": "814480-annotations",
+      "type": "SeriesAnnotation",
+      "citationShort": " – processed by Our World in Data",
+      "citationLong": " – processed by Our World in Data. “814480-annotations” [dataset].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/undefined.metadata.json"
+    }
+  },
+  "dateDownloaded": "2026-02-18",
+  "activeFilters": {}
+}
