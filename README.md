@@ -1,1 +1,2 @@
-# D3 Project Starter Template
+# D3 Interactive Bar Chart
+
