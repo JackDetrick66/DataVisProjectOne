@@ -13,7 +13,8 @@ class Barchart {
       containerHeight: _config.containerHeight || 200,
       margin: _config.margin || {top: 10, right: 5, bottom: 25, left: 30},
       reverseOrder: _config.reverseOrder || false,
-      tooltipPadding: _config.tooltipPadding || 15
+      tooltipPadding: _config.tooltipPadding || 15,
+      yAxisLabel: _config.yAxisLabel || value
     }
     this.data = _data;
     this.initVis();
@@ -79,7 +80,7 @@ class Barchart {
 
     // Specificy x- and y-accessor functions
     vis.xValue = d => d.Entity;
-    vis.yValue = d => +d['Life expectancy'];
+    vis.yValue = d => +d['Life expectancy'] || +d['Years of schooling'];
 
     // Set the scale input domains
     vis.xScale.domain(vis.data.map(vis.xValue));
@@ -115,7 +116,7 @@ class Barchart {
           d3.select('#tooltip')
             .style('opacity', 1)
             // Format number with million and thousand separator
-            .html(`<div class="tooltip-label">${d.Entity}</div><div class="tooltip-label">Life Expectancy: ${d3.format('.1f')(+d['Life expectancy'])}</div>`)
+            .html(`<div class="tooltip-label">${d.Entity}</div><div class="tooltip-label">${vis.config.yAxisLabel}: ${d3.format('.1f')(vis.yValue(d))}</div>`)
         })
         .on('mousemove', (event) => {
           d3.select('#tooltip')
