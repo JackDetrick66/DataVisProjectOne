@@ -8,6 +8,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <select id="regionSelect">
+        <option value="all">All Regions</option>
+        <option value="Asia">Asia</option>
+        <option value="North America">North America</option>
+        <option value="South America">South America</option>
+        <option value="Europe">Europe</option>
+        <option value="Oceania">Oceania</option>
+        <option value="Africa">Africa</option>
+        
+    </select>
     <div class="container">
         <h1>Average Life Expectancy by Country (Average of All Records)</h1>
         
@@ -34,11 +44,17 @@
         <h1>Averages</h1>
         <svg id="scatter"></svg>
     </div>
+    <div class="container">
+        <h1>What does Choropleth even mean???</h1>
+        <div id="map"></div>
+    </div>
     <script src="js/d3.v6.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/regionFilter.js"></script>
     <script src="js/barchart.js"></script>
     <script src="js/scatterplot.js"></script>
+    <script src="js/choroplethMap.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

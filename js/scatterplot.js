@@ -1,3 +1,5 @@
+
+
 class Scatterplot {
 
   /**
@@ -122,6 +124,8 @@ class Scatterplot {
 
     // Tooltip event listeners
     circles
+        .attr('fill', d => getColor(d.region))
+        .attr('opacity', d => getOpacity(d.region))
         .on('mouseover', (event,d) => {
           d3.select('#tooltip')
             .style('opacity', 1)
@@ -140,6 +144,7 @@ class Scatterplot {
           d3.select('#tooltip').style('opacity', 0);
         });
     
+
     // Update the axes/gridlines
     // We use the second .call() to remove the axis and just show gridlines
     vis.xAxisG

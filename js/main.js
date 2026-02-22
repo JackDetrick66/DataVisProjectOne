@@ -2,19 +2,31 @@
 let barchart;
 let barchart2;
 let scatter;
+let choro;
+function updateAllCharts(){
+    choro.updateVis();
+    barchart.updateVis();
+    barchart2.updateVis();
+    scatter.updateVis();
+}
 // Load the data before doing anything to create the charts
 Promise.all([
     d3.csv('data/life-expectancy-prados-de-la-escosura.csv'),
-    d3.csv('data/mean-years-of-schooling-long-run.csv')
-]).then(([dataLife, dataSchool]) => {
+    d3.csv('data/mean-years-of-schooling-long-run.csv'),
+    d3.json('data/geo.json')
+]).then(([dataLife, dataSchool, geoData]) => {
     
     const rollup = d3.rollup(dataLife,
-        group => d3.mean(group, d=> +d['Life expectancy']),
+        group => ({
+            avgLifeExpectancy: parseFloat(d3.mean(group, d=> +d['Life expectancy'])).toFixed(2),
+            region: group[0]['World region according to OWID']
+        }),
         d => d.Entity
     )
-    const avgData = Array.from(rollup, ([entity, avgLifeExpectancy]) => ({
-        Entity: entity,
-        'Life expectancy': avgLifeExpectancy
+    const avgData = Array.from(rollup, ([entity, values]) => ({
+    Entity: entity,
+    'Life expectancy': values.avgLifeExpectancy,
+    region: values.region
     }))
     console.log('avgData:', avgData);
     console.log('avgData length:', avgData.length);
@@ -27,13 +39,17 @@ Promise.all([
     barchart.updateVis();
 
     
-    const rollup2 =d3.rollup(dataSchool,
-        group => d3.mean(group, d=> +d['Average years of schooling']),
-        d=>d.Entity
+    const rollup2 = d3.rollup(dataSchool,
+        group => ({
+            avgYearsSchooling: parseFloat(d3.mean(group, d => +d['Average years of schooling'])).toFixed(2),
+            region: group[0]['Entity']
+        }),
+        d => d.Entity
     )
-    const avgData2 = Array.from(rollup2, ([entity, avgYearsSchooling]) => ({
-        Entity: entity,
-        'Years of schooling': avgYearsSchooling
+    const avgData2 = Array.from(rollup2, ([entity, values]) => ({
+    Entity: entity,
+    'Years of schooling': values.avgYearsSchooling,
+    region: avgData.find(d => d.Entity === entity)?.region ?? null
     }))
     console.log('avgData2:', avgData2);
     console.log('avgData2 length:', avgData2.length);
@@ -50,13 +66,30 @@ Promise.all([
     scatter = new Scatterplot({parentElement: '#scatter', yAxisLabel: 'Average'}, combined);
     scatter.updateVis();
 
+
+    geoData.features.forEach(d=> {
+        for(let i = 0; i < avgData.length; i++){
+            if(d.properties.name == avgData[i].Entity) {
+                d.properties.lifeExp = +avgData[i]['Life expectancy'],
+                d.properties.region = avgData[i].region;
+            }
+        }
+    });
+    choro = new ChoroplethMap({
+        parentElement: '#map'
+    }, geoData);
+    choro.updateVis();
+
+
+    initDropdown(updateAllCharts);
+
 })
+.catch(error => console.error(error));
 
-
- 
 
 d3.select('#sorting').on('click', d => {
   barchart.config.reverseOrder = true;
   barchart.updateVis();
 })
+
 //This is to map the two datasets into one object.

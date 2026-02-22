@@ -96,19 +96,23 @@ class Barchart {
     let vis = this;
 
     // Add rectangles
+    console.log('selectedRegion:', selectedRegion);
+    console.log('sample region:', vis.data[0]?.region);
     let bars = vis.chart.selectAll('.bar')
         .data(vis.data, vis.xValue)
       .join('rect');
     
-    bars.style('opacity', 0.5)
+    bars.attr('fill',d => getColor(d.region))
+        .attr('opacity', d => getOpacity(d.region))
+
+    bars
       .transition().duration(1000)
-        .style('opacity', 1)
         .attr('class', 'bar')
         .attr('x', d => vis.xScale(vis.xValue(d)))
         .attr('width', vis.xScale.bandwidth())
         .attr('height', d => vis.height - vis.yScale(vis.yValue(d)))
         .attr('y', d => vis.yScale(vis.yValue(d)))
-        .attr('fill','steelblue')
+
     
     // Tooltip event listeners
     bars
