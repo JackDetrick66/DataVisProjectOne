@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div>
     <select id="regionSelect">
         <option value="all">All Regions</option>
         <option value="Asia">Asia</option>
@@ -18,12 +19,13 @@
         <option value="Africa">Africa</option>
         
     </select>
+    </div>
     <div class="container">
         <h1>Average Life Expectancy by Country (Average of All Records)</h1>
         
         <svg id="chart"></svg>
 
-        <div id="footer">
+        <!-- <div id="footer">
             <div class="footer-col">
                 <button type="button" class="btn btn-link btn-sm" id="sorting">
                     <img src="images/sort-down.svg" alt="" width="14" height="14" title="Sort"> Reverse order
@@ -32,10 +34,10 @@
             <div class="footer-col text-right">
                 <a href="https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/hlt-fst/pd-pl/Table.cfm" class="btn btn-link btn-sm">Source: statcan.gc.ca</a>
             </div>
-        </div>
+        </div> -->
     </div>
 
-    <div id="tooltip"></div>
+    
     <div class="container">
         <h1>Average Years of Schooling by Country (Average of All Records)</h1>
         <svg id="chart2"></svg>
@@ -48,6 +50,7 @@
         <h1>What does Choropleth even mean???</h1>
         <div id="map"></div>
     </div>
+    <div id ="tooltip"></div>
     <script src="js/d3.v6.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
