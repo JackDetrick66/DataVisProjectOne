@@ -1,2 +1,2 @@
-# D3 Interactive Bar Chart
+# D3 Interactive Charts
 
