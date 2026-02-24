@@ -72,10 +72,11 @@ Promise.all([
 
 
     geoData.features.forEach(d=> {
-        for(let i = 0; i < avgData.length; i++){
-            if(d.properties.name == avgData[i].Entity) {
-                d.properties.lifeExp = +avgData[i]['Life expectancy'],
-                d.properties.region = avgData[i].region;
+        for(let i = 0; i < combined.length; i++){
+            if(d.properties.name == combined[i].Entity) {
+                d.properties.lifeExp = +combined[i]['Life expectancy'],
+                d.properties.education = +combined[i]['Years of schooling'],
+                d.properties.region = combined[i].region;
             }
         }
     });

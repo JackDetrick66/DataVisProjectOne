@@ -119,6 +119,7 @@ class ChoroplethMap {
     countryPath
         .on('mousemove', (event,d) => {
           const LifeExpectancy = d.properties.lifeExp ? `<strong>${d.properties.lifeExp}</strong> years` : 'No data available'; 
+          const Education = d.properties.education ? `<strong>${d.properties.education}</strong> years` : 'No data available';
           d3.select('#tooltip')
             .style('opacity', 1)
             .style('left', (event.pageX + vis.config.tooltipPadding) + 'px')   
@@ -126,6 +127,7 @@ class ChoroplethMap {
             .html(`
               
               <div>Life expectancy: ${LifeExpectancy}</div>
+              <div>Years of Education: ${Education}</div>
             `);
         })
         .on('mouseleave', () => {
