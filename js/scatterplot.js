@@ -137,8 +137,8 @@ updateVis() {
               <div class="tooltip-title">${d.Entity}</div>
               
               <ul>
-                <li>${d['Life expectancy']} years of life</li>
-                <li>${d['Years of schooling']} years of schooling</li>
+                <li>${d['Life expectancy']} Life Expectancy</li>
+                <li>${d['Years of schooling']} Years of Schooling</li>
               </ul>
             `);
         })
