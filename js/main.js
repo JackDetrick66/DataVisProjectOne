@@ -9,7 +9,7 @@ function updateAllCharts(){
     choro.updateVis();
     barchart.updateVis();
     barchart2.updateVis();
-    scatter.updateVis();
+
     scatterTimeline.updateVis();
 }
 // Load the data before doing anything to create the charts
@@ -68,9 +68,7 @@ Promise.all([
     'Years of schooling': avgData2.find(d2=>d2.Entity === d.Entity)?.['Years of schooling'] ?? 0
     }))
 
-    
-    scatter = new Scatterplot({parentElement: '#scatter', yAxisLabel: 'Average'}, combined);
-    scatter.updateVis();
+
 
 
     geoData.features.forEach(d=> {
@@ -118,11 +116,3 @@ Promise.all([
 
 })
 .catch(error => console.error(error));
-
-
-d3.select('#sorting').on('click', d => {
-  barchart.config.reverseOrder = true;
-  barchart.updateVis();
-})
-
-//This is to map the two datasets into one object.

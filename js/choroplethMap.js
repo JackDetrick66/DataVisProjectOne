@@ -9,10 +9,10 @@ class ChoroplethMap {
     this.config = {
       parentElement: _config.parentElement,
       containerWidth: _config.containerWidth || 500,
-      containerHeight: _config.containerHeight || 400,
-      margin: _config.margin || {top: 0, right: 0, bottom: 0, left: 0},
+      containerHeight: _config.containerHeight || 440,
+      margin: _config.margin || {top: 0, right: 0, bottom: 60, left: 0},
       tooltipPadding: 10,
-      legendBottom: 50,
+      legendBottom: 10,
       legendLeft: 50,
       legendRectHeight: 12, 
       legendRectWidth: 150
@@ -35,7 +35,7 @@ class ChoroplethMap {
     vis.svg = d3.select(vis.config.parentElement).append('svg')
         .attr('width', vis.config.containerWidth)
         .attr('height', vis.config.containerHeight);
-
+    
     // Append group element that will contain our actual chart 
     // and position it according to the given margin config
     vis.chart = vis.svg.append('g')
@@ -53,7 +53,15 @@ class ChoroplethMap {
     // Initialize gradient that we will later use for the legend
     vis.linearGradient = vis.svg.append('defs').append('linearGradient')
         .attr("id", "legend-gradient");
-
+    vis.svg.select('defs').append('pattern')
+        .attr('id', 'lightstripe')
+        .attr('patternUnits', 'userSpaceOnUse')
+        .attr('width', 4)
+        .attr('height', 4)
+      .append('path')
+        .attr('d', 'M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2')
+        .attr('stroke', '#000000')
+        .attr('stroke-width', .5);
     // Append legend
     vis.legend = vis.chart.append('g')
         .attr('class', 'legend')
@@ -62,12 +70,6 @@ class ChoroplethMap {
     vis.legendRect = vis.legend.append('rect')
         .attr('width', vis.config.legendRectWidth)
         .attr('height', vis.config.legendRectHeight);
-
-    vis.legendTitle = vis.legend.append('text')
-        .attr('class', 'legend-title')
-        .attr('dy', '.35em')
-        .attr('y', -10)
-        .text('Life expectancy')
 
     vis.updateVis();
   }
@@ -141,8 +143,8 @@ class ChoroplethMap {
         .attr('x', (d,index) => {
           return index == 0 ? 0 : vis.config.legendRectWidth;
         })
-        .text(d => Math.round(d.value * 10 ) / 10);
-
+        .text((d => Math.round(d.value * 10 ) / 10) )
+        
     // Update gradient for legend
     vis.linearGradient.selectAll('stop')
         .data(vis.legendStops)
