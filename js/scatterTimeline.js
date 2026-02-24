@@ -78,36 +78,36 @@ class Scatterplot {
         .attr('x', vis.width + 10)
         .attr('dy', '.71em')
         .style('text-anchor', 'end')
-        .text('Life Expectancy');
+        .text('Avg');
 
     vis.svg.append('text')
         .attr('class', 'axis-title')
         .attr('x', 0)
         .attr('y', 0)
         .attr('dy', '.71em')
-        .text('Years of Schooling');
+        .text('Avg');
   }
 
   /**
    * Prepare the data and scales before we render it.
    */
-updateVis() {
+  updateVis() {
+
     let vis = this;
 
-    if (!vis.selectedYear || vis.selectedYear === 'All Years') {
-        vis.filteredData = vis.avgData ?? vis.data;
-    } else {
-        vis.filteredData = vis.data.filter(d => +d.Year === vis.selectedYear);
-    }
+    vis.filteredData = vis.selectedYear === 'All Years'
+        ? vis.data
+        : vis.data.filter(d => +d.Year === vis.selectedYear);
     vis.colorValue = d => d.Entity;
     vis.xValue = d => d['Life expectancy'];
-    vis.yValue = d => d['Years of schooling'];
+    vis.yValue = d => d['Average years of schooling'];
 
+    // Set the scale input domains
     vis.xScale.domain([0, d3.max(vis.filteredData, vis.xValue)]);
     vis.yScale.domain([0, d3.max(vis.filteredData, vis.yValue)]);
 
     vis.renderVis();
-}
+  }
 
   /**
    * Bind data to visual elements.

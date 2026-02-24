@@ -3,11 +3,14 @@ let barchart;
 let barchart2;
 let scatter;
 let choro;
+let scatterTimeline;
+
 function updateAllCharts(){
     choro.updateVis();
     barchart.updateVis();
     barchart2.updateVis();
     scatter.updateVis();
+    scatterTimeline.updateVis();
 }
 // Load the data before doing anything to create the charts
 Promise.all([
@@ -15,6 +18,9 @@ Promise.all([
     d3.csv('data/mean-years-of-schooling-long-run.csv'),
     d3.json('data/geo.json')
 ]).then(([dataLife, dataSchool, geoData]) => {
+
+
+
     
     const rollup = d3.rollup(dataLife,
         group => ({
@@ -82,6 +88,33 @@ Promise.all([
 
 
     initDropdown(updateAllCharts);
+   const combinedTime = dataLife.map(d=>({
+        ...d,
+        'Years of schooling': dataSchool.find(d2=>d2.Entity === d.Entity)?.['Average years of schooling'] ?? 0,
+        region: d['World region according to OWID']
+        
+    }))
+    
+    const years = [...new Set(dataLife.map(d => d.Year))].sort();
+    years.unshift('All Years');
+    const select = d3.select('#year-select');  // <-- was missing
+
+    select.selectAll('option')
+        .data(years)
+        .join('option')
+        .text(d => d)
+        .attr('value', d => d);
+
+    scatterTimeline = new Scatterplot({parentElement: '#scatter2'}, combinedTime);
+    scatterTimeline.avgData = combined;
+    scatterTimeline.selectedYear = 'All Years';
+    scatterTimeline.updateVis();
+
+    select.on('change', function() {
+        scatterTimeline.selectedYear = this.value === 'All Years' ? 'All Years' : +this.value;
+        scatterTimeline.updateVis();
+    });
+
 
 })
 .catch(error => console.error(error));
